@@ -1,7 +1,11 @@
-import Image from 'next/image'
+import { UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <p>Discord Clone</p>
-  )
+    <>
+      <p>Discord Clone</p>
+      <UserButton afterSignOutUrl="/" />
+    </>
+  );
 }
