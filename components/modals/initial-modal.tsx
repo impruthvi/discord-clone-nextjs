@@ -122,7 +122,7 @@ const InitialModal = () => {
               />
             </div>
             <DialogFooter className="flex bg-gray-100 px-6 py-4">
-              <Button variant="primary">Creata</Button>
+              <Button variant="primary">Create</Button>
             </DialogFooter>
           </form>
         </Form>

@@ -155,7 +155,7 @@ const CreateChannelModal = () => {
               />
             </div>
             <DialogFooter className="flex bg-gray-100 px-6 py-4">
-              <Button variant="primary">Creata</Button>
+              <Button variant="primary" disabled={isLoading}>Create</Button>
             </DialogFooter>
           </form>
         </Form>
