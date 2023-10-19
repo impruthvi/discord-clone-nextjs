@@ -36,6 +36,7 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { ChannelType } from "@prisma/client";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z
@@ -49,7 +50,12 @@ const formSchema = z.object({
 });
 
 const CreateChannelModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
+
+  const { channelType } = data;
+
+  
+
   const routes = useRouter();
   const params = useParams();
 
@@ -59,9 +65,19 @@ const CreateChannelModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   });
+
+  useEffect(() => {
+    console.log(channelType);
+    
+    if (channelType) {
+      form.setValue("type", channelType);
+    } else {
+      form.setValue("type", ChannelType.TEXT);
+    }
+  }, [channelType, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -86,6 +102,8 @@ const CreateChannelModal = () => {
     onClose();
     form.reset();
   };
+
+
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
@@ -155,7 +173,9 @@ const CreateChannelModal = () => {
               />
             </div>
             <DialogFooter className="flex bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>Create</Button>
+              <Button variant="primary" disabled={isLoading}>
+                Create
+              </Button>
             </DialogFooter>
           </form>
         </Form>
