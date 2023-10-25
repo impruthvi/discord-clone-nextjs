@@ -52,11 +52,11 @@ export const ServerSearch: React.FC<ServerSidebarProps> = ({ data }) => {
     setOpen(false);
 
     if (type === "channel") {
-      router.push(`/server/${params.serverId}/channels/${id}`);
+      router.push(`/server/${params?.serverId}/channels/${id}`);
     }
 
     if (type === "member") {
-      router.push(`/server/${params.serverId}/conversations/${id}`);
+      router.push(`/server/${params?.serverId}/conversations/${id}`);
     }
   };
 
