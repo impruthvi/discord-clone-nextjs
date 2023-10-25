@@ -8,6 +8,9 @@ import { Form, FormField, FormControl, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Plus, Smile } from "lucide-react";
 
+import axios from "axios";
+import qs from "query-string";
+
 interface ChatInputProps {
   apiUrl: string;
   query: Record<string, any>;
@@ -34,8 +37,19 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (value: z.infer<typeof formSchema>) => {
-    console.log(value);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      });
+
+      await axios.post(url, values);
+
+      form.reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,7 +72,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   <Input
                     disabled={isLoading}
                     className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                    placeholder={`Message ${type === "conversation" ? name : "#"}${name}`}
+                    placeholder={`Message ${
+                      type === "conversation" ? name : "#"
+                    }${name}`}
                     {...field}
                   />
                   <div className="absolute top-8 right-8">
