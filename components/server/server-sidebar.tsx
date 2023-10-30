@@ -117,7 +117,7 @@ const ServerSidebar: React.FC<ServerSidebarProps> = async ({ serverId }) => {
                 data: members?.map((member) => ({
                   icon: roleIconMap[member.role],
                   name: member.profile.name,
-                  id: member.profile.id,
+                  id: member.id,
                 })),
               },
             ]}
