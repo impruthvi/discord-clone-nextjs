@@ -1,4 +1,6 @@
 import { ChatHeader } from "@/components/chat/chat-header";
+import { ChatInput } from "@/components/chat/chat-input";
+import { ChatMessages } from "@/components/chat/chat-messages";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
@@ -40,7 +42,8 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
 
   const { memberOne, memberTwo } = conversation;
 
-  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne;
+  const otherMember =
+    memberOne.profileId === profile.id ? memberTwo : memberOne;
 
   if (!otherMember) return redirect(`/servers/${serverId}`);
 
@@ -51,6 +54,27 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
         type="conversation"
         imageUrl={otherMember.profile.imageUrl}
         serverId={serverId}
+      />
+      <ChatMessages
+        name={otherMember.profile.name}
+        member={currentMember}
+        chatId={conversation.id}
+        paramKey="conversationId"
+        paramValue={conversation.id}
+        type="conversation"
+        apiUrl="/api/direct-messages"
+        socketUrl="/api/socket/direct-messages"
+        socketQuery={{
+          conversationId: conversation.id,
+        }}
+      />
+      <ChatInput
+        name={otherMember.profile.name}
+        type="conversation"
+        apiUrl="/api/socket/direct-messages"
+        query={{
+          conversationId: conversation.id,
+        }}
       />
     </div>
   );
