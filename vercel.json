@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/socket/io.ts": {
+    "pages/api/socket/io.ts": {
       "maxDuration": 60
     }
   }
