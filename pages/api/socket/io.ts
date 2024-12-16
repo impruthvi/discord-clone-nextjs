@@ -3,6 +3,8 @@ import { NextApiRequest } from "next";
 import { Server as SocketIOServer } from "socket.io";
 import { NextApiResponseServerIo } from "@/types";
 
+export const maxDuration = 60; // 1 minute
+
 export const config = {
   api: {
     bodyParser: false,
