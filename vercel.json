@@ -1,9 +1,6 @@
 {
   "functions": {
-    "api/**/*.js": {
-      "maxDuration": 60
-    },
-    "api/**/*.ts": {
+    "api/socket/io.ts": {
       "maxDuration": 60
     }
   }
