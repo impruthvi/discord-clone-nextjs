@@ -1,7 +1,6 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -37,7 +36,7 @@ model Server {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileId], name: "profileId")
+  @@index([profileId])
 }
 
 enum MemberRole {
@@ -65,8 +64,8 @@ model Member {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileId], name: "profileId")
-  @@index([serverId], name: "serverId")
+  @@index([profileId])
+  @@index([serverId])
 }
 
 enum ChannelType {
@@ -91,8 +90,8 @@ model Channel {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileId], name: "profileId")
-  @@index([serverId], name: "serverId")
+  @@index([profileId])
+  @@index([serverId])
 }
 
 model Message {
@@ -112,8 +111,8 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([memberId], name: "memberId")
-  @@index([channelId], name: "channelId")
+  @@index([memberId])
+  @@index([channelId])
 }
 
 model Conversation {
@@ -127,8 +126,8 @@ model Conversation {
 
   directMessages DirectMessage[]
 
-  @@unique([memberOneId, memberTwoId], name: "memberOneId_memberTwoId")
-  @@index([memberTwoId], name: "memberTwoId")
+  @@unique([memberOneId, memberTwoId])
+  @@index([memberTwoId])
 }
 
 model DirectMessage {
@@ -148,6 +147,6 @@ model DirectMessage {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([conversationId], name: "conversationId")
-  @@index([memberId], name: "memberId")
+  @@index([conversationId])
+  @@index([memberId])
 }
